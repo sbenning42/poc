@@ -10,6 +10,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpClientModule } from '@angular/common/http';
+import { Environ } from '../providers/environ/environ';
+import { AuthProvider } from '../providers/auth/auth';
+import { PersistProvider } from '../providers/persist/persist';
+import { SiginInOrSignUpPageModule } from '../pages/sigin-in-or-sign-up/sigin-in-or-sign-up.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule,
+    SiginInOrSignUpPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,7 +41,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Environ.withEnviron({log: true}),
+    AuthProvider,
+    PersistProvider
   ]
 })
 export class AppModule {}
